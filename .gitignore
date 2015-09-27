@@ -1,3 +1,4 @@
+/config.py.sample
 # Python cache
 __pycache__/
 *.pyc
@@ -16,6 +17,7 @@ __pycache__/
 
 # Auto-generated virtual environment
 /env/
+venv
 
 # Auto-generated web.config
 /web.config
