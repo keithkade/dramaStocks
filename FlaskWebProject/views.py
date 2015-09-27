@@ -9,11 +9,16 @@ import nltk
 
 @app.route('/')
 def home():
+
+    #stocks = ['AAPL', 'IBM', 'MMM', 'MSFT', 'ATVI']
+
+    ticker = 'AAPL'
+
     #prices = list(mongo.db.prices.find({},{'ticker':1}))
-    prices = list(mongo.db.tweets.find({'name':'IBM'}))
+    prices = list(mongo.db.tweets.find({'name':ticker}))
 
-
-    #begin stupid stop picking
+    #34463bad7e819fc5d858f0af40d3c69e
+    #begin stupid stock picking
 
     bought = False
     highRetweet = 0
@@ -33,7 +38,11 @@ def home():
             bought = False
             sellDate = dateStr
 
-    print Trader.buySell('IBM', buyDate, sellDate, 1000)
+    print buyDate
+    print sellDate
+    print Trader.buySell(ticker, buyDate, sellDate, 1000)
+
+
     print Trader.buySell('DJI', buyDate, sellDate, 1000)
 
     return render_template('index.html', prices=prices)
