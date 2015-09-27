@@ -3,6 +3,7 @@ from config import *
 from pymongo import MongoClient
 from textblob import TextBlob
 
+
 client = MongoClient('mongodb://40.78.151.253:27017/')
 
 db = client.stocks
@@ -33,7 +34,7 @@ def oauth_req(url, key, secret, http_method="GET", post_body="", http_headers=No
 
 for stock in stocks:
     stuff = []
-    req = json.loads(oauth_req('https://api.twitter.com/1.1/search/tweets.json?q=\%s'%(stock[1]), ACCESS_TOKEN_KEY, ACCESS_TOKEN_SECRET))['statuses']
+    req = json.loads(oauth_req('https://api.twitter.com/1.1/search/tweets.json?q=\%s&result_type=popular&until=2015-09-25'%(stock[1]), ACCESS_TOKEN_KEY, ACCESS_TOKEN_SECRET))['statuses']
     for post in req:
         print post['text']
         stuff.append({

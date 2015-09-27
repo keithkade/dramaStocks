@@ -10,5 +10,4 @@ app.config['MONGO_DBNAME'] = "stocks"
 mongo = PyMongo(app)
 
 
-
 import FlaskWebProject.views
