@@ -1,4 +1,5 @@
 import oauth2
+import config
 
 stocks = ['IBM','AAPL','MMM','MSFT','ATVI']
 
@@ -10,7 +11,7 @@ def oauth_req(url, key, secret, http_method="GET", post_body="", http_headers=No
     resp, content = client.request( url, method=http_method, body=post_body, headers=http_headers )
     return content
 
-for (stock in stocks):
+for stock in stocks:
     req = oauth_req('https://api.twitter.com/1.1/search/tweets.json?q=%s'%(stock), ACCESS_TOKEN_KEY, ACCESS_TOKEN_TOKEN)
-    for (post in req['statuses']):
+    for post in req['statuses']:
         print post['text']
