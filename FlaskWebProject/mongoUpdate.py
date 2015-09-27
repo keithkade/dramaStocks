@@ -11,15 +11,15 @@ import requests, json
 def buySell(ticker, start, end, amt):
     data = collection2.find_one({'ticker' : ticker})
     if data:
-        startPrice = 1
-        endPrice = 1
+        startPrice = -1
+        endPrice = -1
         for price in data['prices']:
             if price['date'] == start:
                 startPrice = price['open']
             elif price['date'] == end:
                 endPrice = price['open']
-        print startPrice
-        print endPrice
+        if startPrice == -1 or endPrice == -1:
+            return 0
         delta = (endPrice - startPrice) / startPrice
         return delta * amt
 
@@ -53,6 +53,6 @@ for post in col:
     print post['ticker']
 """
 
-print buySell('MSFT', '1999-01-04', '2001-01-02', 1000)
+print buySell('MSFT', '1999-01-01', '2001-01-02', 1000)
 
 print 'done'
