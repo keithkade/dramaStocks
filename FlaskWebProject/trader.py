@@ -5,6 +5,7 @@ client = MongoClient('mongodb://40.78.151.253:27017/')
 db = client.stocks
 collection = db.tickers
 collection2 = db.prices
+collection3 = db.prices500
 
 import requests, json
 class Trader(object):
@@ -26,20 +27,20 @@ class Trader(object):
             delta = (endPrice - startPrice) / startPrice
             return delta * amt
 
-"""
-stocks = [{'ticker': 'AAPL'},{'ticker': 'MMM'},{'ticker': 'MSFT'},{'ticker': 'IBM'},{'ticker': 'ATVI'}]
-#for post in collection.find():
-for post in stocks:
+
+#stocks = [{'ticker': 'AAPL'},{'ticker': 'MMM'},{'ticker': 'MSFT'},{'ticker': 'IBM'},{'ticker': 'ATVI'}]
+for post in collection.find():
+#for post in stocks:
     entry = []
     ticker = post['ticker']
-    if not collection2.find_one({'ticker' : ticker}):
+    if not collection3.find_one({'ticker' : ticker}):
         responseTxt = requests.get("https://www.quandl.com/api/v3/datasets/WIKI/" + ticker +  ".json?auth_token=1R-Q-a7d5EAN_TLsSQtx")
         try:
             response = json.loads(responseTxt.text)
             if ('dataset' in response):
                 for thing in response['dataset']['data']:
                     entry.append({'date' : thing[0], 'open': thing[8]})
-                collection2.insert({'ticker': ticker, 'prices': entry})
+                collection3.insert({'ticker': ticker, 'prices': entry})
                 print 'added ' + ticker
             else:
                 print 'no data for ' + ticker
@@ -47,7 +48,7 @@ for post in stocks:
             print ticker + ' broke'
     else:
         print ticker + ' was in db'
-"""
+
 
 """
 col = collection2.find()
