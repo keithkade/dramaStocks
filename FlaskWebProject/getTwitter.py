@@ -38,9 +38,9 @@ collection = db.tickers
 i = 0
 for stock in collection.find():
     i += 1
-    if i < 180:
+    if i < 350:
         continue
-        
+
     stuff = []
     try:
         req = json.loads(oauth_req('https://api.twitter.com/1.1/search/tweets.json?q=\%s&result_type=popular&until=2015-09-25'%(stock['ticker']), ACCESS_TOKEN_KEY, ACCESS_TOKEN_SECRET))['statuses']

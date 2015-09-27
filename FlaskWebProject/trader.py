@@ -4,7 +4,7 @@ client = MongoClient('mongodb://40.78.151.253:27017/')
 
 db = client.stocks
 collection = db.tickers
-collection2 = db.prices
+#collection2 = db.prices
 collection3 = db.prices500
 
 import requests, json
@@ -13,7 +13,7 @@ class Trader(object):
         pass
     @staticmethod
     def buySell(ticker, start, end, amt):
-        data = collection2.find_one({'ticker' : ticker})
+        data = collection3.find_one({'ticker' : ticker})
         if data:
             startPrice = -1
             endPrice = -1
@@ -27,7 +27,7 @@ class Trader(object):
             delta = (endPrice - startPrice) / startPrice
             return delta * amt
 
-
+"""
 #stocks = [{'ticker': 'AAPL'},{'ticker': 'MMM'},{'ticker': 'MSFT'},{'ticker': 'IBM'},{'ticker': 'ATVI'}]
 for post in collection.find():
 #for post in stocks:
@@ -48,7 +48,7 @@ for post in collection.find():
             print ticker + ' broke'
     else:
         print ticker + ' was in db'
-
+"""
 
 """
 col = collection2.find()
