@@ -1,0 +1,17 @@
+@font-face {
+  font-family: "opensans";
+  src: url('/static/fonts/SOurceSansPro-Regular.ttf');
+}
+@font-face {
+  font-family: "opensans";
+  font-weight: 100;
+  src: url('/static/fonts/SOurceSansPro-Light.ttf');
+}
+@font-face {
+  font-family: "opensans";
+  font-weight: bold;
+  src: url('/static/fonts/SOurceSansPro-Bold.ttf');
+}
+body {
+    font: 14pt/1.5 opensans;
+}
