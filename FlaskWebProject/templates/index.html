@@ -1,17 +1,52 @@
 {% extends "layout.html" %}
 
 {% block content %}
-
-<div class="jumbotron">
-    <h1>Flask</h1>
-    <p class="lead">Flask is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://flask.pocoo.org/" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
-</div>
-
-<div class="row">
-  {% for price in prices %}
-    {{ price }}
-  {% endfor %}
-</div>
-
+  {% if names is defined %}
+    <div class="left">
+      <table>
+        <div class="head">{{ name }}</div>
+        <tr>
+          <th>Date</th>
+          <th>Opening Price</th>
+        </tr>
+        {% for price in prices %}
+        <tr>
+          <td>{{ price['date'] }}</td>
+          <td>${{ price['open'] }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+      <table>
+        <div class="head">DJI</div>
+        <tr>
+          <th>Date</th>
+          <th>Opening Price</th>
+        </tr>
+        {% for dows in dow %}
+        <tr>
+          <td>{{ dows['date'] }}</td>
+          <td>${{ dows['open'] }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+    <div class="right">
+      <h3>Percent gain/loss:</h3>
+      <h4>{{ names }}%</h4>
+    </div>
+  {% else %}
+  {% endif %}
+  <section class="search">
+    <i class="ionicon ion-close btn exit"></i>
+    <h1>SEARCH</h1>
+    <form method="POST" action="/">
+      <input class="search" name="name" autocomplete="off" maxlength=4>
+    </form>
+    <h1>TRENDING</h1>
+    <div class="content">
+      <div class="trend">NFLX</div>
+      <div class="trend">AMNZ</div>
+      <div class="trend">AAPL</div>
+    </div>
+  </section>
 {% endblock %}
