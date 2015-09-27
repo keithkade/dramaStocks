@@ -6,6 +6,7 @@ import nltk
 
 @app.route('/')
 def home():
-    prices = list(mongo.db.prices.find({},{'ticker':1}))
-    
+    #prices = list(mongo.db.prices.find({},{'ticker':1}))
+    prices = list(mongo.db.tweets.find({'name':'IBM'}))
+
     return render_template('index.html', prices=prices)
