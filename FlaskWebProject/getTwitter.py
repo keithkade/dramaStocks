@@ -1,6 +1,7 @@
 import oauth2, json
 from config import *
 from pymongo import MongoClient
+from textblob import TextBlob
 
 client = MongoClient('mongodb://40.78.151.253:27017/')
 
@@ -18,6 +19,8 @@ tweets.remove({})
             - followers
             - retweets
             - date
+            - polarity
+            - subjectivity
 """
 
 #twitter
@@ -29,9 +32,10 @@ def oauth_req(url, key, secret, http_method="GET", post_body="", http_headers=No
     return content
 
 for stock in stocks:
-    req = json.loads(oauth_req('https://api.twitter.com/1.1/search/tweets.json?q=\$%s'%(stock), ACCESS_TOKEN_KEY, ACCESS_TOKEN_SECRET))
     stuff = []
-    for post in req['statuses']:
+    req = json.loads(oauth_req('https://api.twitter.com/1.1/search/tweets.json?q=\%s'%(stock[1]), ACCESS_TOKEN_KEY, ACCESS_TOKEN_SECRET))['statuses']
+    for post in req:
+        print post['text']
         stuff.append({
             'text': post['text'],
             'favorites': post['favorite_count'],
@@ -39,5 +43,7 @@ for stock in stocks:
             'followers': post['user']['followers_count'],
             'date': post['created_at'],
             'id': post['id'],
+            'polarity': TextBlob(post['text']).sentiment.polarity,
+            'subjectivity': TextBlob(post['text']).sentiment.subjectivity
         })
-    tweets.insert({'name': stock, 'tweets' : stuff})
+    tweets.insert({'name': stock[1], 'tweets' : stuff})
